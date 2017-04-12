@@ -1,5 +1,4 @@
-#define PROTOTYPE
-#if UNITY_EDITOR || UNITY_STANDALONE
+﻿#if UNITY_EDITOR || UNITY_STANDALONE
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -135,10 +134,12 @@ namespace ProBuilder2.Examples
 			ico.gameObject.GetComponent<MeshRenderer>().sharedMaterial = material;
 #endif
 
+			pb_Face[] connectingFaces;
+
 			// Extrude all faces on the icosphere by a small amount.  The third boolean parameter
 			// specifies that extrusion should treat each face as an individual, not try to group
 			// all faces together.
-			ico.Extrude(shell, ExtrudeMethod.IndividualFaces, startingExtrusion);
+			ico.Extrude(shell, startingExtrusion, false, out connectingFaces);
 
 			// ToMesh builds the mesh positions, submesh, and triangle arrays.  Call after adding
 			// or deleting vertices, or changing face properties.
