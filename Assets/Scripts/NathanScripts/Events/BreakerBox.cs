@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class BreakerBox : MonoBehaviour, IActivatable
+public class BreakerBox : MonoBehaviour, IActivate
 {
     [SerializeField] GameObject lightContainerGameObject;
 
