@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class InventoryObj : MonoBehaviour, IActivate
@@ -11,6 +12,9 @@ public class InventoryObj : MonoBehaviour, IActivate
 
     [SerializeField]
     string descriptionText;
+
+    [SerializeField]
+    Sprite mainImage;
 
     InventoryManager inventoryManager;
     ActivateLookedAtObject activateLookedAtObject;
@@ -36,6 +40,17 @@ public class InventoryObj : MonoBehaviour, IActivate
             return descriptionText;
         }
     }
+
+    public Sprite MainImage //Set as Image for the UI Part 
+    {
+        get
+        {
+            return mainImage;
+        }
+
+    }
+
+
 
     public void DoActivate()
     {

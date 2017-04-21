@@ -10,6 +10,11 @@ public class InventoryMenuObject : MonoBehaviour
     public Toggle toggle;
     private InventoryManager inventoryManager;
 
+
+
+    
+
+
     public InventoryObj InventoryObjectRepresented { get; set; }
 
 
@@ -54,6 +59,8 @@ public class InventoryMenuObject : MonoBehaviour
             inventoryManager.UpdateDescriptionText(InventoryObjectRepresented.DescriptionText);
         }
 
+        
+
 
     }
 
@@ -61,7 +68,6 @@ public class InventoryMenuObject : MonoBehaviour
     void Start()
     {
         toggle = GetComponent<Toggle>();
-
 
 
         try
@@ -78,7 +84,7 @@ public class InventoryMenuObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        OnValueChanged();
     }
 }
 

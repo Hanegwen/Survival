@@ -11,6 +11,9 @@ public class InventoryManager : MonoBehaviour
     GameObject inventoryMenuPanel;
 
     [SerializeField]
+    public GameObject currentlySelected;
+
+    [SerializeField]
     FirstPersonController firstPersonController;
 
     [SerializeField]
@@ -20,7 +23,7 @@ public class InventoryManager : MonoBehaviour
     Transform inventoryItemsListPanel;
 
     [SerializeField]
-    Text descriptionText;
+    Text descriptionText, numberOfInventoryItems;
 
     [SerializeField]
     public GameObject Player;
@@ -31,7 +34,7 @@ public class InventoryManager : MonoBehaviour
 
     public List<InventoryObj> InventoryObjects { get; set; }
 
-    private List<GameObject> inventoryObjectToggles;
+    private List<GameObject> inventoryObjectImage;
 
     public const string DefaultDescriptionMessage =
         "If you've picked anything up, you can select it to learn more." +
@@ -46,8 +49,9 @@ public class InventoryManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        
         InventoryObjects = new List<InventoryObj>();
-        inventoryObjectToggles = new List<GameObject>();
+        inventoryObjectImage = new List<GameObject>();
         HideInventoryMenu();
         UpdateDescriptionText(DefaultDescriptionMessage);
 
@@ -88,11 +92,12 @@ public class InventoryManager : MonoBehaviour
         GenerateInventoryItemToggles();
         isInventoryMenuShowing = true;
         inventoryMenuPanel.SetActive(true);
+        numberOfInventoryItems.text = InventoryObjects.Count.ToString() + "/" + inventorySlots;
     }
 
     private void DestroyInventoryItemToggles()
     {
-        foreach (GameObject item in inventoryObjectToggles)
+        foreach (GameObject item in inventoryObjectImage)
         {
             Destroy(item);
         }
@@ -115,12 +120,16 @@ public class InventoryManager : MonoBehaviour
 
                 inventoryObjectToggle.GetComponentInChildren<Text>().text =
                     InventoryObjects[i].NameText;
+                inventoryObjectToggle.GetComponentInChildren<Image>(gameObject.name == "Background").sprite =
+                     InventoryObjects[i].MainImage; // Sets the Image in toggle
+
+
                 inventoryObjectToggle.tag = InventoryObjects[i].tag;
 
                 Toggle toggle = inventoryObjectToggle.GetComponent<Toggle>();
                 toggle.group = inventoryItemsListPanel.GetComponent<ToggleGroup>();
-
-                inventoryObjectToggles.Add(inventoryObjectToggle);
+                
+                inventoryObjectImage.Add(inventoryObjectToggle);
             }
         }
     }
