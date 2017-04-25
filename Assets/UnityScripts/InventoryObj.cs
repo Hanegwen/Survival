@@ -15,6 +15,8 @@ public class InventoryObj : MonoBehaviour, IActivate
 
     [SerializeField]
     Sprite mainImage;
+    public enum ItemType { ELECTRIC, FOOD, DRINK, HEALTH };
+    public ItemType itemType = ItemType.ELECTRIC;
 
     InventoryManager inventoryManager;
     ActivateLookedAtObject activateLookedAtObject;
