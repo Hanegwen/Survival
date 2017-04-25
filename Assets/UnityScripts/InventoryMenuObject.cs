@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Toggle))]
-public class InventoryMenuObject : MonoBehaviour
+public class InventoryMenuObject : MonoBehaviour , ISelectHandler
 {
     //private GameManager GM;
 
@@ -48,21 +49,33 @@ public class InventoryMenuObject : MonoBehaviour
 
 
     }
-
-
-    public void OnValueChanged()
+    public void OnSelect(BaseEventData eventData)
     {
-        if (toggle.isOn)
-        {
+        
+        inventoryManager.ToggleCount++;
+        Debug.Log(inventoryManager.ToggleCount + "Toggle Count");
+       
+        inventoryManager.UpdateDescriptionText(InventoryObjectRepresented.DescriptionText);
 
-            // update the description text based on the selected item
-            inventoryManager.UpdateDescriptionText(InventoryObjectRepresented.DescriptionText);
+        if (inventoryManager.FirstSelected == null)
+        {
+            inventoryManager.FirstSelected = InventoryObjectRepresented.gameObject;
+            inventoryManager.FirstImage.sprite = inventoryManager.FirstSelected.gameObject.GetComponent<InventoryObj>().MainImage;
+
         }
 
-        
+        if (inventoryManager.FirstSelected !=null && inventoryManager.SecondSelected == null && InventoryObjectRepresented.gameObject != inventoryManager.FirstSelected)
+        {
+            inventoryManager.SecondSelected = InventoryObjectRepresented.gameObject;
 
+            inventoryManager.SecondImage.sprite = inventoryManager.SecondSelected.gameObject.GetComponent<InventoryObj>().MainImage;
 
-    }
+        }
+
+   }
+
+    
+    
 
     // Use this for initialization
     void Start()
@@ -84,7 +97,7 @@ public class InventoryMenuObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        OnValueChanged();
+
     }
 }
 

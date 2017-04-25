@@ -35,7 +35,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler
         if (wasSelected == true)
         {
 
-            IM.currentlySelected = thisObject;
+            //IM.currentlySelected = thisObject;
         }
 
     }
