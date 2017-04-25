@@ -17,16 +17,20 @@ public class EventDeck : MonoBehaviour
         eventList = allEvents;
 	}
 
-    public static void DrawRandomNewEvent()
+    public static void DrawNewRandomNewEvent()
     {
-        //draw a random event and activate it
-        int randomEventIndex = Random.Range(0, eventList.Count);
-        IEvent chosenEvent = eventList[randomEventIndex];
-        chosenEvent.ActivateEvent();
+        if (eventList.Count > 0)
+        {
+            Debug.Log("Number of events left to draw: " + eventList.Count);
+            //draw a random event and activate it
+            int randomEventIndex = Random.Range(0, eventList.Count);
+            IEvent chosenEvent = eventList[randomEventIndex];
+            chosenEvent.ActivateEvent();
 
-        //move the event from the untriggered event list to the triggered one
-        eventList.Remove(chosenEvent);
-        alreadyTriggeredEvents.Add(chosenEvent);
+            //move the event from the untriggered event list to the triggered one
+            eventList.Remove(chosenEvent);
+            alreadyTriggeredEvents.Add(chosenEvent);
+        }
     }
 
     public static void DrawChosenEvent(IEvent eventToDraw)
@@ -40,4 +44,10 @@ public class EventDeck : MonoBehaviour
             alreadyTriggeredEvents.Add(eventToDraw);
         }
     }
+
+    public static List<IEvent> getActivatedEvents()
+    {
+        return alreadyTriggeredEvents;
+    }
+
 }

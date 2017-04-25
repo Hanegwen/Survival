@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class ActivateLookedAtObject : MonoBehaviour
 {
     //Script is meant to be put on the player Camera
-
+    [SerializeField]
+    Light flashlight;
     [SerializeField]
     float maxDistanceToActivate = 4;
     [SerializeField]
@@ -21,6 +22,7 @@ public class ActivateLookedAtObject : MonoBehaviour
     IActivate lookedAtObject;
 
     public int currentInventoryItems = 0;
+    public static bool shouldShowDisplayText = true;
 
 
     // Use this for initialization
@@ -36,7 +38,6 @@ public class ActivateLookedAtObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currentInventoryItems);
         currentInventoryItems = inventoryManagerScript.InventoryObjects.Count;
         HandleInput();
         UpdateLookedAtObjectText();
@@ -67,7 +68,7 @@ public class ActivateLookedAtObject : MonoBehaviour
 
     void UpdateLookedAtObjectText()
     {
-        if (lookedAtObject == null)
+        if (lookedAtObject == null || (shouldShowDisplayText == false && !flashlight.enabled))
         {
             lookedAtObjectText.gameObject.SetActive(false);
             lookedAtObjectText2.gameObject.SetActive(false);
