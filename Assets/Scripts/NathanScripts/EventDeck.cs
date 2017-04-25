@@ -40,4 +40,9 @@ public class EventDeck : MonoBehaviour
             alreadyTriggeredEvents.Add(eventToDraw);
         }
     }
+
+    public static List<IEvent> getActivatedEvents()
+    {
+        return alreadyTriggeredEvents;
+    }
 }
