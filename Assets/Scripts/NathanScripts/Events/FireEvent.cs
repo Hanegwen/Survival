@@ -4,19 +4,17 @@ using System.Collections.Generic;
 public class FireEvent : IEvent
 {
     [SerializeField] List<Room> RoomsToSetFireTo;
-    [SerializeField] List<Transform> FireSpawnLocations;
-    [SerializeField] GameObject firePrefab;
+    [SerializeField] GameObject FireObject;
 
     public override void ActivateEvent()
     {
         foreach(Room room in RoomsToSetFireTo)
         {
             room.DestroyItemsInRoom();
+            room.airQualityPercentage = 0.1f;
+            //room.MakeRoomInaccessible();
         }
 
-        foreach(Transform spawnLocation in FireSpawnLocations)
-        {
-            Instantiate(firePrefab, spawnLocation.position, Quaternion.identity, spawnLocation);
-        }
+        FireObject.SetActive(true);
     }
 }
