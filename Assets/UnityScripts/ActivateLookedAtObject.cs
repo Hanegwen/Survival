@@ -21,6 +21,7 @@ public class ActivateLookedAtObject : MonoBehaviour
     IActivate lookedAtObject;
    public static bool shouldShowDisplayText = true;
     public int currentInventoryItems = 0;
+    public static bool shouldShowDisplayText = true;
 
 
     // Use this for initialization
