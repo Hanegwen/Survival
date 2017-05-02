@@ -4,42 +4,52 @@ using UnityEngine.UI;
 
 public class DayCycle : MonoBehaviour
 {
-    [SerializeField] float LengthPerDayInSeconds;
-    [SerializeField] Slider daySlider;
+    [SerializeField]
+    GameObject WinLoseScreenPanel;
+
+    [SerializeField]
+    float LengthPerDayInSeconds;
+    //[SerializeField] Slider daySlider;
 
     float dayCountdown;
-    int currentDay;
+    public int currentDay = 0;
 
-    public int DaysUntilResuce;
+    public int RescueDay;
 
-	// Use this for initialization
-	void Start ()
+    public int DaysUntilRescue
+    { get { return RescueDay - currentDay; } }
+
+    // Use this for initialization
+    void Start()
     {
         dayCountdown = LengthPerDayInSeconds;
         //daySlider.maxValue = LengthPerDayInSeconds;
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         dayCountdown -= Time.deltaTime;
 
         if (dayCountdown <= 0)
         {
-            EventDeck.DrawRandomNewEvent();
-
+            Debug.Log("Next Day");
             currentDay++;
-            dayCountdown = LengthPerDayInSeconds;
 
-            if (currentDay >= DaysUntilResuce)
+            if (currentDay >= RescueDay)
                 Rescue();
+
+            dayCountdown = LengthPerDayInSeconds;
+            ObserverSortOf.AlertDayChange();
+            EventDeck.DrawRandomNewEvent();
         }
 
         //daySlider.value = dayCountdown;
-	}
+    }
 
     void Rescue()
     {
         //You "won" the game!
+        WinLoseScreenPanel.SetActive(true);
     }
 }

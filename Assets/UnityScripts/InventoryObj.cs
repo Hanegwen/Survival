@@ -16,8 +16,8 @@ public class InventoryObj : MonoBehaviour, IActivate
     [SerializeField]
     Sprite mainImage;
 
-    public enum ItemType {  ELECTRIC, FOOD,DRINK, HEALTH};
-    public ItemType itemType = ItemType.ELECTRIC;
+    public enum ItemType { NONE, ELECTRIC, FOOD, DRINK, HEALTH, TOOL };
+    public ItemType itemType = ItemType.NONE;
 
     InventoryManager inventoryManager;
     ActivateLookedAtObject activateLookedAtObject;
@@ -25,7 +25,6 @@ public class InventoryObj : MonoBehaviour, IActivate
     AudioSource audioSource;
     MeshRenderer childMesh;
     BoxCollider childCollider;
-  //  GrenadeScript grenadeScript;
 
 
     public string NameText
@@ -57,9 +56,6 @@ public class InventoryObj : MonoBehaviour, IActivate
 
     public void DoActivate()
     {
-
-        Debug.Log("Activated.");
-
         audioSource.Play();
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.enabled = false;
@@ -101,11 +97,14 @@ public class InventoryObj : MonoBehaviour, IActivate
 
     }
 
-    public void DoEat()
+    public virtual void UseItemOn(InventoryObj itemToUseOn)
     {
+        Debug.Log("It's not very effective");
+    }
 
-
-
+    public void RemoveSelfFromInventory()
+    {
+        inventoryManager.InventoryObjects.Remove(this);
     }
 
 

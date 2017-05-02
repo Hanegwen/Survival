@@ -40,15 +40,9 @@ public class InventoryMenuObject : MonoBehaviour , ISelectHandler
     }
     public void ClickedEat()
     {
-
-        InventoryObjectRepresented.DoEat();
-
         inventoryManager.ShowInventoryMenu();
-
-
-
-
     }
+
     public void OnSelect(BaseEventData eventData)
     {
         
@@ -61,7 +55,7 @@ public class InventoryMenuObject : MonoBehaviour , ISelectHandler
         {
             inventoryManager.FirstSelected = InventoryObjectRepresented.gameObject;
             inventoryManager.FirstImage.sprite = inventoryManager.FirstSelected.gameObject.GetComponent<InventoryObj>().MainImage;
-
+            inventoryManager.FirstSelectedObject = inventoryManager.FirstSelected.gameObject.GetComponent<InventoryObj>();
         }
 
         if (inventoryManager.FirstSelected !=null && inventoryManager.SecondSelected == null && InventoryObjectRepresented.gameObject != inventoryManager.FirstSelected)
@@ -69,6 +63,7 @@ public class InventoryMenuObject : MonoBehaviour , ISelectHandler
             inventoryManager.SecondSelected = InventoryObjectRepresented.gameObject;
 
             inventoryManager.SecondImage.sprite = inventoryManager.SecondSelected.gameObject.GetComponent<InventoryObj>().MainImage;
+            inventoryManager.SecondSelectedObject = inventoryManager.SecondSelected.gameObject.GetComponent<InventoryObj>();
 
         }
 

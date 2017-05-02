@@ -30,6 +30,7 @@ public class InventoryManager : MonoBehaviour
 
     [SerializeField]
     public Image FirstImage, SecondImage;
+    [HideInInspector] public InventoryObj FirstSelectedObject, SecondSelectedObject;
 
     [SerializeField] Sprite Default;
 
@@ -64,7 +65,8 @@ public class InventoryManager : MonoBehaviour
         HideInventoryMenu();
         UpdateDescriptionText(DefaultDescriptionMessage);
 
-
+        Flashlight playerFlashlight = FindObjectOfType<Flashlight>();
+        InventoryObjects.Add(playerFlashlight);
 
     }
 
@@ -109,6 +111,8 @@ public class InventoryManager : MonoBehaviour
     {
         FirstSelected = null;
         SecondSelected = null;
+        FirstSelectedObject = null;
+        SecondSelectedObject = null;
         UpdateUIImage();
         ToggleCount = 0;
         DestroyInventoryItemToggles();
@@ -198,6 +202,22 @@ public class InventoryManager : MonoBehaviour
 
     }
 
- 
+
+    public void UseItemsOnEachOther()
+    {
+        if(FirstSelectedObject) //if a first object is selected
+        {
+            if(SecondSelectedObject) //if a second object is selected, use the first item on the second item
+            {
+                SecondSelectedObject.UseItemOn(FirstSelectedObject);
+            }
+            else //otherwise, we'll use the items on the player
+            {
+                FirstSelectedObject.UseItemOn(null);
+            }
+        }
+    }
+
+
 }
 
