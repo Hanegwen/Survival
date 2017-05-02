@@ -19,7 +19,7 @@ public class ActivateLookedAtObject : MonoBehaviour
     [SerializeField]
     InventoryManager inventoryManagerScript;
     IActivate lookedAtObject;
-
+   public static bool shouldShowDisplayText = true;
     public int currentInventoryItems = 0;
 
 

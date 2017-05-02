@@ -7,11 +7,14 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    public Toggle toggle;
     [SerializeField]
     GameObject inventoryMenuPanel;
 
+    public GameObject inventoryObjectToggle;
+
     [SerializeField]
-    public GameObject currentlySelected;
+    public GameObject FirstSelected, SecondSelected;
 
     [SerializeField]
     FirstPersonController firstPersonController;
@@ -26,10 +29,16 @@ public class InventoryManager : MonoBehaviour
     Text descriptionText, numberOfInventoryItems;
 
     [SerializeField]
+    public Image FirstImage, SecondImage;
+
+    [SerializeField] Sprite Default;
+
+    [SerializeField]
     public GameObject Player;
 
     ActivateLookedAtObject activateLookedAtObject;
 
+    public int ToggleCount;
 
 
     public List<InventoryObj> InventoryObjects { get; set; }
@@ -55,6 +64,8 @@ public class InventoryManager : MonoBehaviour
         HideInventoryMenu();
         UpdateDescriptionText(DefaultDescriptionMessage);
 
+
+
     }
 
     // Update is called once per frame
@@ -64,6 +75,14 @@ public class InventoryManager : MonoBehaviour
         HandleInput();
         UpdateCursor();
         UpdateFirstPersonController();
+        if (ToggleCount > 2)
+        {
+
+            ShowInventoryMenu();
+            ToggleCount = 0;
+
+        }
+
     }
 
     public void UpdateDescriptionText(string newText)
@@ -88,6 +107,10 @@ public class InventoryManager : MonoBehaviour
 
     public void ShowInventoryMenu()
     {
+        FirstSelected = null;
+        SecondSelected = null;
+        UpdateUIImage();
+        ToggleCount = 0;
         DestroyInventoryItemToggles();
         GenerateInventoryItemToggles();
         isInventoryMenuShowing = true;
@@ -112,7 +135,7 @@ public class InventoryManager : MonoBehaviour
             if (inventorySlots > i)
             {
 
-                GameObject inventoryObjectToggle =
+                inventoryObjectToggle =
                     GameObject.Instantiate(inventoryItemTogglePrefab, inventoryItemsListPanel) as GameObject;
 
                 inventoryObjectToggle.GetComponent<InventoryMenuObject>().InventoryObjectRepresented =
@@ -126,7 +149,7 @@ public class InventoryManager : MonoBehaviour
 
                 inventoryObjectToggle.tag = InventoryObjects[i].tag;
 
-                Toggle toggle = inventoryObjectToggle.GetComponent<Toggle>();
+                 toggle = inventoryObjectToggle.GetComponent<Toggle>();
                 toggle.group = inventoryItemsListPanel.GetComponent<ToggleGroup>();
                 
                 inventoryObjectImage.Add(inventoryObjectToggle);
@@ -166,5 +189,15 @@ public class InventoryManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
+
+
+    void UpdateUIImage ()
+    {
+        FirstImage.sprite = Default;
+        SecondImage.sprite = Default;
+
+    }
+
+ 
 }
 

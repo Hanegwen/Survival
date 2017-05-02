@@ -26,7 +26,7 @@ public class DayCycle : MonoBehaviour
 
         if (dayCountdown <= 0)
         {
-            EventDeck.DrawNewRandomNewEvent();
+            EventDeck.DrawRandomNewEvent();
 
             currentDay++;
             dayCountdown = LengthPerDayInSeconds;
