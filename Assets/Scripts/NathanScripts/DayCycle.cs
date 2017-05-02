@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class DayCycle : MonoBehaviour
 {
+    string WinText = "You lasted long enough to be rescued!";
+    [SerializeField]
+    Text EndScreen;
     [SerializeField]
     GameObject WinLoseScreenPanel;
 
@@ -50,6 +53,7 @@ public class DayCycle : MonoBehaviour
     void Rescue()
     {
         //You "won" the game!
+        EndScreen.text = WinText;
         WinLoseScreenPanel.SetActive(true);
     }
 }

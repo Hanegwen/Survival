@@ -35,4 +35,9 @@ public class MenuScript : MonoBehaviour {
     {
         SceneManager.LoadScene("Game");
     }
+
+    public void EndScene()
+    {
+        SceneManager.LoadScene("EndScene");
+    }
 }

@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+
+    string LooseText = "You couldn't last long enough to be rescued.  The world slowly blacks out.  You must rest now until someone comes to get you. ";
+    [SerializeField]
+    Text EndScreen;
     [SerializeField]
     GameObject WinLoseScreenPanel;
 
@@ -100,7 +105,9 @@ public class Player : MonoBehaviour
         if (/*condition <= 0 ||*/ thirst <= 0 || hunger <= 0 || health <= 0 || breathing <= 0)
         {
             //Debug.Log("Player is now incapacitated");
+            EndScreen.text = LooseText;
             WinLoseScreenPanel.SetActive(true);
+            
         }
     }
 
