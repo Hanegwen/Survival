@@ -105,6 +105,8 @@ public class Player : MonoBehaviour
         if (/*condition <= 0 ||*/ thirst <= 0 || hunger <= 0 || health <= 0 || breathing <= 0)
         {
             //Debug.Log("Player is now incapacitated");
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             EndScreen.text = LooseText;
             WinLoseScreenPanel.SetActive(true);
             
