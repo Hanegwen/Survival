@@ -42,6 +42,7 @@ public class Flashlight : InventoryObj
             Debug.Log("Used batteries");
             RechargeFlashlight();
             itemToUseOn.RemoveSelfFromInventory();
+            
         }
     }
 

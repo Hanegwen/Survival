@@ -19,7 +19,7 @@ public class InventoryObj : MonoBehaviour, IActivate
     public enum ItemType { NONE, ELECTRIC, FOOD, DRINK, HEALTH, TOOL };
     public ItemType itemType = ItemType.NONE;
 
-    InventoryManager inventoryManager;
+    public InventoryManager inventoryManager;
     ActivateLookedAtObject activateLookedAtObject;
     bool shouldDisableWhenDonePlayingSFX = false;
     AudioSource audioSource;
