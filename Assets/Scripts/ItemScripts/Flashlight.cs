@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Flashlight : InventoryObj
 {
@@ -12,10 +13,13 @@ public class Flashlight : InventoryObj
     [SerializeField] float flashlightChargeStart = 100f;
     float flashlightCharge;
     float flashlightStartIntensity;
-
+    [SerializeField]
+    GameObject lowBattery;
+    Text lowBatText;
     void Start()
     {
         itemType = ItemType.ELECTRIC;
+        lowBatText = lowBattery.GetComponent<Text>();
 
         flashlight = GetComponentInChildren<Light>();
         if(!flashlight)
@@ -27,8 +31,10 @@ public class Flashlight : InventoryObj
         flashlightStartIntensity = flashlight.intensity;
 
         flashlight.enabled = false;
+        lowBattery.SetActive(false);
 
     }
+
 
     public override void UseItemOn(InventoryObj itemToUseOn)
     {
@@ -42,7 +48,7 @@ public class Flashlight : InventoryObj
             Debug.Log("Used batteries");
             RechargeFlashlight();
             itemToUseOn.RemoveSelfFromInventory();
-            
+            inventoryManager.ShowInventoryMenu();
         }
     }
 
@@ -67,6 +73,12 @@ public class Flashlight : InventoryObj
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            TurnOnOffFlashlight();
+
+        }
+
         if (flashlight.enabled)
         {
             if (flashlight.intensity > 0)
@@ -76,11 +88,20 @@ public class Flashlight : InventoryObj
                 //change the ratio of the flashlight's intensity based on 
                 flashlight.intensity = (flashlightCharge / flashlightChargeStart) * flashlightStartIntensity;
                 flashLightOutOfBatteries = false;
+                if (flashlight.intensity < .65f)
+                {
+                    lowBattery.SetActive(true);
+                    lowBatText.color = new Color(lowBatText.color.r, lowBatText.color.g, lowBatText.color.b, Mathf.PingPong(Time.time, .5f));
+
+                }
             }
+
+
             else
             {
                 flashlight.intensity = 0;
                 flashLightOutOfBatteries = true;
+                lowBattery.SetActive(false);
             }
         }
     }
