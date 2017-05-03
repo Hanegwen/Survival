@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-
+    public static bool isGameOver = false;
     string LooseText = "You couldn't last long enough to be rescued.  The world slowly blacks out.  You must rest now until someone comes to get you. ";
     [SerializeField]
     Text EndScreen;
@@ -104,6 +104,7 @@ public class Player : MonoBehaviour
     {
         if (/*condition <= 0 ||*/ thirst <= 0 || hunger <= 0 || health <= 0 || breathing <= 0)
         {
+            isGameOver = true;
             //Debug.Log("Player is now incapacitated");
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
