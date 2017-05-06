@@ -11,6 +11,11 @@ public class ObserverSortOf : MonoBehaviour
         listeningEvents.Add(eventToSubscribe);
     }
 
+    public static void UnSubscribeIEvent(IEvent unsubscribeEvent)
+    {
+        listeningEvents.Remove(unsubscribeEvent);
+    }
+
     public static void AlertDayChange()
     {
         for(int x = listeningEvents.Count - 1; x >= 0; x--)

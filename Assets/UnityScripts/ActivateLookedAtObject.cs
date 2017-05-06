@@ -20,7 +20,6 @@ public class ActivateLookedAtObject : MonoBehaviour
     InventoryManager inventoryManagerScript;
     IActivate lookedAtObject;
    public static bool shouldShowDisplayText = true;
-   public int currentInventoryItems = 0;
 
 
     // Use this for initialization
@@ -36,7 +35,6 @@ public class ActivateLookedAtObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentInventoryItems = inventoryManagerScript.InventoryObjects.Count;
         HandleInput();
         UpdateLookedAtObjectText();
         CheckForLookedAtObjects();
@@ -49,9 +47,8 @@ public class ActivateLookedAtObject : MonoBehaviour
         {
             if (lookedAtObject != null)
             {
-                if (inventoryManagerScript.inventorySlots > currentInventoryItems)
+                if (inventoryManagerScript.inventorySlots > inventoryManagerScript.InventoryObjects.Count)
                 {
-                    currentInventoryItems++;
                     lookedAtObject.DoActivate();
                 }
                 else
