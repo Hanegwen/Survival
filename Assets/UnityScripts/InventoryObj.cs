@@ -22,7 +22,7 @@ public class InventoryObj : MonoBehaviour, IActivate
     public InventoryManager inventoryManager;
     ActivateLookedAtObject activateLookedAtObject;
     bool shouldDisableWhenDonePlayingSFX = false;
-    AudioSource audioSource;
+    //AudioSource audioSource;
     MeshRenderer childMesh;
     BoxCollider childCollider;
 
@@ -56,7 +56,7 @@ public class InventoryObj : MonoBehaviour, IActivate
 
     public void DoActivate()
     {
-        audioSource.Play();
+        //audioSource.Play();
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.enabled = false;
         //MeshRenderer childMesh = GetComponentInChildren<MeshRenderer>();
@@ -67,9 +67,10 @@ public class InventoryObj : MonoBehaviour, IActivate
         boxCollider.enabled = false;
 
         shouldDisableWhenDonePlayingSFX = true;
-        if (shouldDisableWhenDonePlayingSFX && !audioSource.isPlaying)
+        if (shouldDisableWhenDonePlayingSFX)
         {
             //gameObject.SetActive(false);
+            inventoryManager = GameObject.Find("Inventory Manager").GetComponent<InventoryManager>();
             inventoryManager.InventoryObjects.Add(this);
         }
 
@@ -115,7 +116,7 @@ public class InventoryObj : MonoBehaviour, IActivate
         
         childCollider = GetComponentInChildren<BoxCollider>();
         childMesh = GetComponentInChildren<MeshRenderer>();
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
         try
         {
             inventoryManager = GameObject.Find("Inventory Manager").GetComponent<InventoryManager>();

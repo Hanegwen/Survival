@@ -10,9 +10,9 @@ public class UIManager : MonoBehaviour {
     void Start ()
     {
         player = FindObjectOfType<Player>();
-        healthSlider.maxValue = player.health;
-        FoodSlider.maxValue = player.hunger;
-        WaterSlider.maxValue = player.thirst;
+        healthSlider.maxValue = player.Health;
+        FoodSlider.maxValue = player.Hunger;
+        WaterSlider.maxValue = player.Thirst;
         
     }
     void Update ()
@@ -23,18 +23,18 @@ public class UIManager : MonoBehaviour {
     void UpdatePlayerStats ()
     {
         #region HealthSlider
-        healthSlider.value = player.health;
+        healthSlider.value = player.Health;
 
         #endregion
 
         #region FoodSlider
-        FoodSlider.value = player.hunger;
+        FoodSlider.value = player.Hunger;
 
         #endregion
 
         #region WaterSlider
 
-        WaterSlider.value = player.thirst;
+        WaterSlider.value = player.Thirst;
         #endregion
 
         #region AirSlider

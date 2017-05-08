@@ -19,7 +19,7 @@ public class Food : InventoryObj
     {
         if (!itemToUseOn)
         {
-            player.hunger += increaseHungerAmount;
+            player.Hunger += increaseHungerAmount;
             RemoveSelfFromInventory();
         }
     }

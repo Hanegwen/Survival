@@ -26,29 +26,90 @@ public class Player : MonoBehaviour
     [SerializeField]
     float healthDecayRate = 1;
 
-    [SerializeField]
-    float restroomDecayRate = 1;
+    //[SerializeField]
+    //float restroomDecayRate = 1;
 
-    [SerializeField]
-    float energyDecayRate = 1;
+    //[SerializeField]
+    //float energyDecayRate = 1;
 
     public Room currentRoom;
     DustMask dustMaskSlot = null;
 
-    //public float condition = 100f;
-    public float thirst = 100f;
-    public float hunger = 100f;
-    public float health = 100f;
-    public float restroom = 100f;
-    public float breathing = 100f;
-    public float energy = 100f;
+    #region player stat properties and variables
 
-    public int numberOfWounds = 0;
+    //public float condition = 100f;
+    [SerializeField] float thirst = 10f;
+    [SerializeField] float hunger = 10f;
+    [SerializeField] float health = 10f;
+    [SerializeField] float breathing = 10f;
+
+    float maxThirst;
+    float maxHunger;
+    float maxHealth;
+    float maxBreathing;
+
+    //public float restroom = 100f;
+    //public float energy = 100f;
+
+    public float Thirst
+    {
+        get { return thirst; }
+        set
+        {
+            thirst += value;
+
+            if (thirst > maxThirst)
+                thirst = maxThirst;
+        }
+    }
+
+    public float Hunger
+    {
+        get { return hunger; }
+        set
+        {
+            hunger += value;
+
+            if (hunger > maxHunger)
+                hunger = maxHunger;
+        }
+    }
+
+
+    public float Breathing
+    {
+        get { return breathing; }
+        set
+        {
+            breathing += value;
+
+            if (breathing > maxBreathing)
+                breathing = maxBreathing;
+        }
+    }
+
+    public float Health
+    {
+        get { return health; }
+        set
+        {
+            health += value;
+
+            if (health > maxHealth)
+                health = maxHealth;
+        }
+    }
+    #endregion
+
+    //public int numberOfWounds = 0;
 
 
     void Start()
     {
-
+        maxThirst = thirst;
+        maxHealth = health;
+        maxHunger = hunger;
+        maxBreathing = breathing;
     }
 
     public void SetCurrentRoom(Room desiredRoom)
@@ -58,11 +119,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    TurnOnOffFlashlight();
-        //}
-
         UpdateStats();
         CheckIfPlayerIsIncapacitated();
     }
@@ -72,32 +128,32 @@ public class Player : MonoBehaviour
         //decay breathing based on a percentage of the room's air quality (if we don't have a dust mask on)
         if (dustMaskSlot == null)
         {
-            breathing -= (1 - currentRoom.airQualityPercentage) * breathingDecayRate * Time.deltaTime;
+            Breathing -= (1 - currentRoom.airQualityPercentage) * breathingDecayRate * Time.deltaTime;
         }
 
         //decrease hunger and thirst by their decay rates
         hunger -= hungerDecayRate * Time.deltaTime;
         thirst -= thirstDecayRate * Time.deltaTime;
 
-        if(restroom <= 0)
-        {
-            restroom = 0;
-            health -= restroomDecayRate * Time.deltaTime;
-        }
-        else
-        {
-            restroom -= restroomDecayRate * Time.deltaTime;
-        }
+        //if(restroom <= 0)
+        //{
+        //    restroom = 0;
+        //    health -= restroomDecayRate * Time.deltaTime;
+        //}
+        //else
+        //{
+        //    restroom -= restroomDecayRate * Time.deltaTime;
+        //}
 
-        if(energy <= 0)
-        {
-            energy = 0;
-            health -= energyDecayRate * Time.deltaTime;
-        }
-        else
-        {
-            energy -= energyDecayRate * Time.deltaTime;
-        }
+        //if(energy <= 0)
+        //{
+        //    energy = 0;
+        //    health -= energyDecayRate * Time.deltaTime;
+        //}
+        //else
+        //{
+        //    energy -= energyDecayRate * Time.deltaTime;
+        //}
     }
 
     void CheckIfPlayerIsIncapacitated()

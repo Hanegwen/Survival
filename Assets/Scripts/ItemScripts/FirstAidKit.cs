@@ -19,11 +19,11 @@ public class FirstAidKit : InventoryObj
     {
         if (!itemToUseOn)
         {
-            player.health += increaseHealthAmount;
-            if(player.numberOfWounds > 0)
-            {
-                player.numberOfWounds--;
-            }
+            player.Health += increaseHealthAmount;
+            //if(player.numberOfWounds > 0)
+            //{
+            //    player.numberOfWounds--;
+            //}
 
             RemoveSelfFromInventory();
         }

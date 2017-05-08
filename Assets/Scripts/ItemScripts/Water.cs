@@ -19,7 +19,7 @@ public class Water : InventoryObj
     {
         if (!itemToUseOn)
         {
-            player.thirst += increaseThirstAmount;
+            player.Thirst += increaseThirstAmount;
             RemoveSelfFromInventory();
         }
     }
