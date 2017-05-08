@@ -91,7 +91,7 @@ public class Flashlight : InventoryObj
                 if (flashlight.intensity < .65f)
                 {
                     lowBattery.SetActive(true);
-                    lowBatText.color = new Color(lowBatText.color.r, lowBatText.color.g, lowBatText.color.b, Mathf.PingPong(Time.time, .5f));
+                    lowBatText.color = new Color(lowBatText.color.r, lowBatText.color.g, lowBatText.color.b, Mathf.PingPong(Time.time, 1f));
 
                 }
             }

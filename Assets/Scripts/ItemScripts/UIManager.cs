@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour {
     void UpdatePlayerStats ()
     {
         #region HealthSlider
-        healthSlider.value = player.restroom;
+        healthSlider.value = player.health;
 
         #endregion
 
