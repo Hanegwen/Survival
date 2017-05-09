@@ -4,6 +4,8 @@ using System;
 
 public class FireObject : MonoBehaviour, IActivate
 {
+    [SerializeField] float damageToDeal = 2.5f;
+
     InventoryManager inventory;
     FireEvent fireEvent;
 
@@ -38,18 +40,13 @@ public class FireObject : MonoBehaviour, IActivate
         }
     }
 
-
-    //private void OnMouseDown()
-    //{
-    //    if(inventory.FirstSelected)
-    //    {
-    //        InventoryObj objectUsedOn = inventory.FirstSelected.GetComponent<InventoryObj>();
-    //        if(objectUsedOn is Water)
-    //        {
-    //            Debug.Log("You put out the fire");
-    //            objectUsedOn.RemoveSelfFromInventory();
-    //            fireEvent.PutOutFire(this.gameObject);
-    //        }
-    //    }
-    //}
+    void OnTriggerStay(Collider coll)
+    {
+        Player player = coll.gameObject.GetComponent<Player>();
+        if(player)
+        {
+            Debug.Log(player);
+            player.Health -= damageToDeal * Time.deltaTime;
+        }
+    }
 }
