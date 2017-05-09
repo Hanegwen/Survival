@@ -106,6 +106,7 @@ public class InventoryObj : MonoBehaviour, IActivate
     public void RemoveSelfFromInventory()
     {
         inventoryManager.InventoryObjects.Remove(this);
+        inventoryManager.ResetInventory();
     }
 
 

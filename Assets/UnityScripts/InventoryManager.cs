@@ -121,6 +121,21 @@ public class InventoryManager : MonoBehaviour
         inventoryMenuPanel.SetActive(true);
         numberOfInventoryItems.text = InventoryObjects.Count.ToString() + "/" + inventorySlots;
     }
+    public void ResetInventory () // called to reset Inventory when not showing
+    {
+        FirstSelected = null;
+        SecondSelected = null;
+        FirstSelectedObject = null;
+        SecondSelectedObject = null;
+        UpdateUIImage();
+        ToggleCount = 0;
+        DestroyInventoryItemToggles();
+        GenerateInventoryItemToggles();
+        isInventoryMenuShowing = false;
+        inventoryMenuPanel.SetActive(false);
+        numberOfInventoryItems.text = InventoryObjects.Count.ToString() + "/" + inventorySlots;
+
+    }
 
     private void DestroyInventoryItemToggles()
     {
@@ -180,7 +195,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private void UpdateCursor()
+    public void UpdateCursor()
     {
         if (isInventoryMenuShowing)
         {

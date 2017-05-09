@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     Text EndScreen;
     [SerializeField]
     GameObject WinLoseScreenPanel;
-
+    InventoryManager IM;
     [SerializeField]
     Light flashlight;
 
@@ -56,9 +56,9 @@ public class Player : MonoBehaviour
         get { return thirst; }
         set
         {
-            thirst += value;
+            thirst = value;
 
-            if (thirst > maxThirst)
+            if (value > 0 && thirst > maxThirst)
                 thirst = maxThirst;
         }
     }
@@ -68,9 +68,9 @@ public class Player : MonoBehaviour
         get { return hunger; }
         set
         {
-            hunger += value;
+            hunger = value;
 
-            if (hunger > maxHunger)
+            if (value > 0 && hunger > maxHunger)
                 hunger = maxHunger;
         }
     }
@@ -81,9 +81,9 @@ public class Player : MonoBehaviour
         get { return breathing; }
         set
         {
-            breathing += value;
+            breathing = value;
 
-            if (breathing > maxBreathing)
+            if (value > 0 && breathing > maxBreathing)
                 breathing = maxBreathing;
         }
     }
@@ -93,9 +93,9 @@ public class Player : MonoBehaviour
         get { return health; }
         set
         {
-            health += value;
+            health = value;
 
-            if (health > maxHealth)
+            if (value > 0 && health > maxHealth)
                 health = maxHealth;
         }
     }
@@ -110,6 +110,7 @@ public class Player : MonoBehaviour
         maxHealth = health;
         maxHunger = hunger;
         maxBreathing = breathing;
+        IM = FindObjectOfType<InventoryManager>();
     }
 
     public void SetCurrentRoom(Room desiredRoom)
@@ -132,8 +133,8 @@ public class Player : MonoBehaviour
         }
 
         //decrease hunger and thirst by their decay rates
-        hunger -= hungerDecayRate * Time.deltaTime;
-        thirst -= thirstDecayRate * Time.deltaTime;
+        Hunger -= hungerDecayRate * Time.deltaTime;
+        Thirst -= thirstDecayRate * Time.deltaTime;
 
         //if(restroom <= 0)
         //{
@@ -161,6 +162,9 @@ public class Player : MonoBehaviour
         if (/*condition <= 0 ||*/ thirst <= 0 || hunger <= 0 || health <= 0 || breathing <= 0)
         {
             isGameOver = true;
+            gameObject.GetComponent<CharacterController>().enabled = false;
+            this.enabled = false;
+            IM.UpdateCursor();
             //Debug.Log("Player is now incapacitated");
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
