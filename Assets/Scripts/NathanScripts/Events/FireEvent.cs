@@ -5,7 +5,8 @@ public class FireEvent : IEvent
 {
     [SerializeField] List<Room> RoomsToSetFireTo;
     [SerializeField] GameObject FireObject;
-
+    [SerializeField] AudioSource FireSound;
+    [SerializeField] AudioClip FireClip;
     int firesLeft = 4;
 
     public override void ActivateEvent()
@@ -17,13 +18,17 @@ public class FireEvent : IEvent
             //room.MakeRoomInaccessible();
         }
 
+
         FireObject.SetActive(true);
+        FireSound.clip = FireClip;
+        FireSound.Play();
     }
 
     public void PutOutFire(GameObject fire)
     {
         //deactivate that fire
         fire.SetActive(false);
+        FireSound.clip = null;
         firesLeft--;
 
         //if we've put out all the fires...

@@ -6,6 +6,8 @@ public class FloodEvent : IEvent
 {
     [SerializeField] List<Room> RoomsToFlood;
     [SerializeField] GameObject FloodObject;
+    [SerializeField] AudioSource FloodAudio;
+    [SerializeField] AudioClip FloodClip;
 
     public override void ActivateEvent()
     {
@@ -16,5 +18,7 @@ public class FloodEvent : IEvent
         }
 
         FloodObject.SetActive(true);
+        FloodAudio.clip = FloodClip;
+        FloodAudio.Play();
     }
 }
