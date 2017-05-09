@@ -7,11 +7,11 @@ public class Whistle : InventoryObj
     [SerializeField] int daysUntilRescueWhenWhistleIsEffective = 1;
 
     string[] whistleMessages;
-
+    InventoryManager IM;
     void Start()
     {
         itemType = ItemType.TOOL;
-
+        IM = FindObjectOfType<InventoryManager>();
         whistleMessages = new string[] {
             "You try to blow the whistle.  The storm is still raging, so chances are, no one heard you.",
             "You try to blow the whistle.  The storm is still raging, so chances are, no one heard you.",
@@ -37,8 +37,10 @@ public class Whistle : InventoryObj
             //if the search parties are close enough
             if (dayCycleScript.DaysUntilRescue <= daysUntilRescueWhenWhistleIsEffective)
             {
-                Debug.Log("Display Prompt: " + whistleMessages[dayCycleScript.currentDay]);
+                IM.DialogPanel.SetActive(true);
+                IM.DialogText.text = whistleMessages[dayCycleScript.currentDay];
                 dayCycleScript.RescueDay--;
+                IM.ShowInventoryMenu();
             }
         }
     }

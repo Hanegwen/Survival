@@ -166,10 +166,10 @@ public class Player : MonoBehaviour
             this.enabled = false;
             IM.UpdateCursor();
             //Debug.Log("Player is now incapacitated");
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+
             EndScreen.text = LooseText;
             WinLoseScreenPanel.SetActive(true);
+            IM.gameOver = true;
             
         }
     }

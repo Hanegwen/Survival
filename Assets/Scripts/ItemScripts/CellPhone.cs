@@ -7,7 +7,7 @@ public class CellPhone : InventoryObj
     [SerializeField] int daysUntilPhoneIsEffective = 1;
 
     string[] CellPhoneMessages;
-
+    InventoryManager IM;
     [SerializeField] float batteryChargeStart = 100f;
     [SerializeField] float batteryChargeConsumerPerUse = 33f;
     float batteryCharge;
@@ -17,7 +17,7 @@ public class CellPhone : InventoryObj
     void Start()
     {
         itemType = ItemType.ELECTRIC;
-
+        IM = FindObjectOfType<InventoryManager>();
         CellPhoneMessages = new string[] {
             "There is no phone signal.  The towers must be down.",
             "You are still getting no signal on the phone.  Better not waste the battery!",
@@ -40,13 +40,14 @@ public class CellPhone : InventoryObj
     {
         if (!itemToUseOn)
         {
+            IM.DialogPanel.SetActive(true);
             if (dayCycleScript.currentDay <= daysUntilPhoneIsEffective)
             {
-                Debug.Log("Display Prompt: " + CellPhoneMessages[dayCycleScript.currentDay]);
+                IM.DialogText.text = CellPhoneMessages[dayCycleScript.currentDay];
 
                 if (hasAlreadyCalledRescue)
                 {
-                    Debug.Log("Display Prompt: \"Resuce is already on the way.  You can't speed up the process anymore.\"");
+                    IM.DialogText.text = "Resuce is already on the way.  You can't speed up the process anymore.";
                 }
                 else
                 {
@@ -54,6 +55,7 @@ public class CellPhone : InventoryObj
                 }
 
                 hasAlreadyCalledRescue = true;
+                IM.ShowInventoryMenu();
             }
 
             batteryCharge -= batteryChargeConsumerPerUse;

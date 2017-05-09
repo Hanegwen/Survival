@@ -33,13 +33,25 @@ public class InventoryManager : MonoBehaviour
     [HideInInspector] public InventoryObj FirstSelectedObject, SecondSelectedObject;
 
     [SerializeField] Sprite Default;
-
+    public bool gameOver = false;
     [SerializeField]
     public GameObject Player;
 
     ActivateLookedAtObject activateLookedAtObject;
 
     public int ToggleCount;
+
+
+
+
+    [SerializeField]
+    public Text DialogText;
+
+    [SerializeField]
+   public  GameObject DialogPanel;
+
+
+
 
 
     public List<InventoryObj> InventoryObjects { get; set; }
@@ -59,6 +71,7 @@ public class InventoryManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        DialogPanel.SetActive(false);
         
         InventoryObjects = new List<InventoryObj>();
         inventoryObjectImage = new List<GameObject>();
@@ -70,6 +83,11 @@ public class InventoryManager : MonoBehaviour
 
     }
 
+    public void OnClosepress ()
+    {
+
+        DialogPanel.SetActive(false);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -197,7 +215,7 @@ public class InventoryManager : MonoBehaviour
 
     public void UpdateCursor()
     {
-        if (isInventoryMenuShowing)
+        if (isInventoryMenuShowing || gameOver == true)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;

@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Radio : InventoryObj
 {
     string[] radioMessages;
     DayCycle dayCycleScript;
+    InventoryManager IM;
 
+
+    int dialogNum = 0;
     void Start()
     {
+        IM = FindObjectOfType<InventoryManager>();
         itemType = ItemType.TOOL;
 
         radioMessages = new string[] {
@@ -30,7 +35,34 @@ public class Radio : InventoryObj
     {
         if(!itemToUseOn)
         {
-            Debug.Log("Display Prompt: " + radioMessages[dayCycleScript.currentDay]);
+            updateText();
         }
     }
+
+    public void  updateText ()
+    {
+        IM.DialogPanel.SetActive(true);
+        IM.DialogText.text = radioMessages[dayCycleScript.currentDay];      
+         IM.ShowInventoryMenu(); 
+
+    }
+
+    //public void NextButtonPressed ()
+    //{
+    //    if (dialogNum < radioMessages.Length)
+    //    {
+    //        dialogNum++;
+    //    }
+    //}
+
+    //public void BackButtonPressed()
+    //{
+    //    if (dialogNum < 0)
+    //    {
+    //        dialogNum--;
+    //    }
+
+    //    else
+    //        return;
+    //}
 }
