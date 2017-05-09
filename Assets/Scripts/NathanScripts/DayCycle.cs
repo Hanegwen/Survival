@@ -9,7 +9,7 @@ public class DayCycle : MonoBehaviour
     Text EndScreen;
     [SerializeField]
     GameObject WinLoseScreenPanel;
-
+    InventoryManager IM;
     [SerializeField]
     float LengthPerDayInSeconds;
     //[SerializeField] Slider daySlider;
@@ -25,6 +25,7 @@ public class DayCycle : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        IM = FindObjectOfType<InventoryManager>();
         dayCountdown = LengthPerDayInSeconds;
         //daySlider.maxValue = LengthPerDayInSeconds;
     }
@@ -53,6 +54,7 @@ public class DayCycle : MonoBehaviour
     void Rescue()
     {
         //You "won" the game!
+        IM.gameOver = true;
         EndScreen.text = WinText;
         WinLoseScreenPanel.SetActive(true);
     }
